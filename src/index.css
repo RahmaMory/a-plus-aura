@@ -1,0 +1,78 @@
+@import "tailwindcss";
+
+@theme {
+  --color-aura-black: #050505;
+  --color-aura-white: #ffffff;
+  --color-aura-soft: #f1f1f1;
+  --color-aura-gray: #6b6b6b;
+
+  /* لون مؤقت لحين استخراج اللون الدقيق من اللوجو */
+  --color-aura-accent: #d946ef;
+
+  --font-display: "Arial Black", "Arial", sans-serif;
+  --font-body: "Arial", "Helvetica", sans-serif;
+}
+
+:root {
+  font-family: var(--font-body);
+  color: var(--color-aura-black);
+  background: var(--color-aura-white);
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+}
+
+html {
+  scroll-behavior: smooth;
+  scroll-padding-top: 88px;
+}
+
+body {
+  min-width: 320px;
+  min-height: 100vh;
+  margin: 0;
+  background: var(--color-aura-white);
+}
+
+button,
+a,
+input,
+textarea,
+select {
+  font: inherit;
+}
+
+a {
+  text-decoration: none;
+}
+img {
+  display: block;
+  max-width: 100%;
+}
+
+::selection {
+  color: white;
+  background: var(--color-aura-black);
+}
+
+@keyframes cardShake {
+  0%,
+  100% {
+    transform: translate3d(0, 0, 0);
+  }
+
+  20% {
+    transform: translate3d(-3px, 1px, 0);
+  }
+
+  40% {
+    transform: translate3d(3px, -2px, 0);
+  }
+
+  60% {
+    transform: translate3d(-2px, 2px, 0);
+  }
+
+  80% {
+    transform: translate3d(2px, -1px, 0);
+  }
+}
