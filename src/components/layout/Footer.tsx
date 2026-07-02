@@ -1,4 +1,3 @@
-import { ArrowUp } from "lucide-react";
 
 const navigationLinks = [
   { label: "Home", href: "#home" },
