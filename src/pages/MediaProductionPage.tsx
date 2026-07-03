@@ -3,7 +3,6 @@ import {
   useEffect,
   useState,
 } from "react";
-import type { CSSProperties } from "react";
 import {
   ArrowLeft,
   ArrowUpRight,
@@ -12,7 +11,6 @@ import {
 import DriveVideoModal from "../components/DriveVideoModal";
 import MediaCategoryShowcase from "../components/MediaCategoryShowcase";
 import {
-  getDrivePreviewUrl,
   mediaProductionCategories,
   type MediaVideo,
 } from "../data/mediaProductionWork";
@@ -21,6 +19,31 @@ type SelectedVideo = {
   video: MediaVideo;
   categoryTitle: string;
 } | null;
+
+const heroPreviewItems = [
+  {
+    title: "Engineering & Interior Design",
+    image: "/images/media-production/hero-main.png",
+  },
+  {
+    title: "Promo",
+    image: "/images/media-production/hero-promo.png",
+  },
+  {
+    title: "Commercial Promo",
+    image: "/images/media-production/hero-commercial.png",
+  },
+  {
+    title: "Motion Edits",
+    image: "/images/media-production/hero-editing.png",
+  },
+];
+const collageClasses = [
+  "col-span-7 row-span-6",
+  "col-span-5 row-span-3",
+  "col-span-3 row-span-3",
+  "col-span-2 row-span-3",
+];
 
 function MediaProductionPage() {
   const [selectedVideo, setSelectedVideo] =
@@ -57,21 +80,8 @@ function MediaProductionPage() {
       0,
     );
 
-  /*
-    نأخذ أول فيديو من 5 أقسام مختلفة
-    لعرضهم في شكل الكوتشينة داخل الـHero
-  */
-  const heroCards = mediaProductionCategories
-    .filter((category) => category.videos.length > 0)
-    .slice(0, 5)
-    .map((category) => ({
-      categoryTitle: category.title,
-      video: category.videos[0],
-    }));
-
   return (
     <div className="min-h-screen bg-white text-black">
-      {/* Header */}
       <header
         className="
           sticky top-0 z-50
@@ -87,21 +97,21 @@ function MediaProductionPage() {
             gap-5 px-5 sm:px-8
           "
         >
-          {/* اللوجو فقط بدل الاسم */}
-         <a
-  href="/"
-  className="inline-flex items-center"
-  aria-label="A Plus Aura home"
->
-  <img
-    src="/logo.png"
-    alt="A Plus Aura"
-    className="
-      h-20 w-auto object-contain
-      sm:h-24 
-    "
-  />
-</a>
+          <a
+            href="/"
+            className="inline-flex items-center"
+            aria-label="A Plus Aura home"
+          >
+            <img
+              src="/logo.png"
+              alt="A Plus Aura"
+              className="
+                h-16 w-auto object-contain
+                sm:h-20
+              "
+            />
+          </a>
+
           <a
             href="/#services"
             className="
@@ -125,7 +135,6 @@ function MediaProductionPage() {
       </header>
 
       <main>
-        {/* Hero */}
         <section
           className="
             relative overflow-hidden
@@ -135,8 +144,8 @@ function MediaProductionPage() {
         >
           <div
             className="
-              pointer-events-none
-              absolute -right-56 -top-56
+              pointer-events-none absolute
+              -right-56 -top-56
               size-[520px] rounded-full
               bg-white/80 blur-3xl
             "
@@ -147,11 +156,10 @@ function MediaProductionPage() {
               mx-auto grid max-w-[1280px]
               items-center gap-12
               px-5 sm:px-8
-              lg:grid-cols-[0.8fr_1.2fr]
-              lg:gap-12
+              lg:grid-cols-[0.82fr_1.18fr]
+              lg:gap-14
             "
           >
-            {/* Hero Content */}
             <div className="relative z-10">
               <p
                 className="
@@ -194,196 +202,191 @@ function MediaProductionPage() {
               </p>
 
               <div className="mt-9 flex flex-wrap gap-3">
-                <div
-                  className="
-                    rounded-2xl bg-white
-                    px-6 py-4
-                    shadow-[0_12px_35px_rgba(0,0,0,0.05)]
-                  "
-                >
-                  <p className="text-2xl font-black">
-                    {mediaProductionCategories.length}
-                  </p>
+  <div
+    className="
+      rounded-2xl bg-white
+      px-6 py-4
+      shadow-[0_12px_35px_rgba(0,0,0,0.05)]
+    "
+  >
+    <p className="text-2xl font-black">
+      {mediaProductionCategories.length}
+    </p>
 
-                  <p className="mt-1 text-xs text-black/40">
-                    Categories
-                  </p>
-                </div>
+    <p className="mt-1 text-xs text-black/40">
+      Categories
+    </p>
+  </div>
 
-                <div
-                  className="
-                    rounded-2xl bg-white
-                    px-6 py-4
-                    shadow-[0_12px_35px_rgba(0,0,0,0.05)]
-                  "
-                >
-                  <p className="text-2xl font-black">
-                    {totalVideos}+
-                  </p>
+  <div
+    className="
+      rounded-2xl bg-white
+      px-6 py-4
+      shadow-[0_12px_35px_rgba(0,0,0,0.05)]
+    "
+  >
+    <p className="text-2xl font-black">
+      +{totalVideos}
+    </p>
 
-                  <p className="mt-1 text-xs text-black/40">
-                    Selected Projects
-                  </p>
-                </div>
-              </div>
+    <p className="mt-1 text-xs text-black/40">
+      Selected Projects
+    </p>
+  </div>
+</div>
             </div>
 
-            {/* Hero Card Fan */}
+            {/* Static collage using local images */}
             <div
               className="
-                relative h-[360px]
-                sm:h-[430px]
-                lg:h-[500px]
+                relative overflow-hidden
+                rounded-[30px] bg-black
+                p-2 shadow-[0_30px_80px_rgba(0,0,0,0.18)]
+                sm:p-3
               "
+              aria-hidden="true"
             >
               <div
                 className="
-                  pointer-events-none
-                  absolute left-1/2 top-1/2
-                  h-[230px] w-[330px]
-                  -translate-x-1/2
-                  -translate-y-1/2
-                  rounded-full
-                  bg-black/[0.06] blur-3xl
-                  sm:h-[300px] sm:w-[470px]
+                  grid h-[350px]
+                  grid-cols-12 grid-rows-6
+                  gap-2 overflow-hidden
+                  rounded-[23px]
+                  sm:h-[430px]
+                  lg:h-[500px]
+                "
+              >
+                {heroPreviewItems.map(
+                  (item, index) => (
+                    <div
+                      key={item.title}
+                      className={`
+                        relative overflow-hidden
+                        bg-[#1a1a1a]
+                        ${collageClasses[index]}
+                      `}
+                    >
+                      <img
+                        src={item.image}
+                        alt=""
+                        loading={
+                          index < 2
+                            ? "eager"
+                            : "lazy"
+                        }
+                        decoding="async"
+                        className="
+                          h-full w-full 
+                          opacity-90 scale-110
+                          interest-0 blur-lg
+
+                         
+                        "
+                      />
+
+                      <span
+                        className="
+                          absolute inset-0
+                          bg-gradient-to-t
+                          from-black/60
+                          via-transparent
+                          to-black/10
+                        "
+                      />
+
+                      <span
+                        className="
+                          absolute bottom-3
+                          left-3 right-3
+                          text-xs font-bold
+                          text-white/90
+                          sm:bottom-4 sm:left-4
+                          sm:right-4 sm:text-sm
+                        "
+                      >
+                        {item.title}
+                      </span>
+                    </div>
+                  ),
+                )}
+              </div>
+
+              <span
+                className="
+                  pointer-events-none absolute inset-0
+                  rounded-[30px]
+                  bg-[radial-gradient(circle_at_center,transparent_42%,rgba(0,0,0,0.68)_100%)]
                 "
               />
 
-              {heroCards.map((item, index) => {
-                const middle =
-                  (heroCards.length - 1) / 2;
-
-                const position = index - middle;
-
-                const cardStyle: CSSProperties = {
-                  transform: `
-                    translateX(-50%)
-                    translateX(${position * 54}px)
-                    translateY(${Math.abs(position) * 16}px)
-                    rotate(${position * 7}deg)
-                  `,
-                  zIndex: 20 + index,
-                };
-
-                return (
-                  <button
-                    key={`${item.categoryTitle}-${item.video.id}`}
-                    type="button"
-                    onClick={() =>
-                      openVideo(
-                        item.video,
-                        item.categoryTitle,
-                      )
-                    }
-                    style={cardStyle}
-                    className="
-                      group absolute
-                      left-1/2 top-4
-                      aspect-[9/14]
-                      w-[135px]
-                      overflow-hidden
-                      rounded-[20px]
-                      bg-black text-left
-                      shadow-[0_25px_60px_rgba(0,0,0,0.2)]
-                      transition-[box-shadow,filter]
-                      duration-300
-                      hover:!z-50
-                      hover:brightness-105
-                      hover:shadow-[0_35px_80px_rgba(0,0,0,0.3)]
-                      sm:top-6 sm:w-[175px]
-                      lg:top-10 lg:w-[205px]
-                    "
-                    aria-label={`Play ${item.categoryTitle}`}
-                  >
-                    <iframe
-                      src={getDrivePreviewUrl(
-                        item.video.driveId,
-                      )}
-                      title={`${item.categoryTitle} preview`}
-                      loading="lazy"
-                      tabIndex={-1}
-                      aria-hidden="true"
-                      className="
-                        pointer-events-none
-                        absolute inset-0
-                        h-full w-full
-                      "
-                      allow="autoplay; fullscreen"
-                    />
-
-                    <span
-                      className="
-                        pointer-events-none
-                        absolute inset-0
-                        bg-gradient-to-t
-                        from-black/90
-                        via-black/5
-                        to-black/10
-                      "
-                    />
-
-                    <span
-                      className="
-                        pointer-events-none
-                        absolute bottom-4
-                        left-4 right-4
-                        text-white
-                      "
-                    >
-                      <span
-                        className="
-                          block text-[9px]
-                          font-bold uppercase
-                          tracking-[0.17em]
-                          text-white/50
-                        "
-                      >
-                        Selected Work
-                      </span>
-
-                      <span
-                        className="
-                          mt-2 block
-                          text-sm font-black
-                          leading-tight
-                          sm:text-base
-                        "
-                      >
-                        {item.categoryTitle}
-                      </span>
-                    </span>
-                  </button>
-                );
-              })}
+              <span
+                className="
+                  pointer-events-none absolute
+                  inset-x-0 bottom-0 h-36
+                  bg-gradient-to-t
+                  from-black/85 to-transparent
+                "
+              />
 
               <div
                 className="
-                  pointer-events-none
-                  absolute bottom-1 left-1/2
-                  -translate-x-1/2
-                  whitespace-nowrap
-                  text-center
+                  pointer-events-none absolute
+                  bottom-6 left-6 right-6
+                  flex items-end justify-between
+                  gap-5 text-white
+                  sm:bottom-8 sm:left-8 sm:right-8
                 "
               >
-                <p
-                  className="
-                    text-[10px] font-bold uppercase
-                    tracking-[0.2em]
-                    text-black/35
-                  "
-                >
-                  Explore Selected Work
-                </p>
+                <div>
+                  <p
+                    className="
+                      text-[10px] font-bold uppercase
+                      tracking-[0.2em]
+                      text-white/50
+                    "
+                  >
+                    Selected Portfolio
+                  </p>
 
-                <p className="mt-2 text-sm font-semibold text-black/60">
-                  Click any card to play
-                </p>
+                  <p
+                    className="
+                      mt-2 max-w-[390px]
+                      text-xl font-black leading-tight
+                      sm:text-2xl
+                    "
+                  >
+                    Multiple Industries.
+                    One Production Team.
+                  </p>
+                </div>
+
+                <div
+  className="
+    shrink-0 rounded-full
+    bg-white px-5 py-3
+    text-center text-black
+    shadow-lg
+  "
+>
+  <p className="text-xl font-black">
+    +{totalVideos}
+  </p>
+
+  <p
+    className="
+      text-[10px] font-bold uppercase
+      tracking-[0.13em]
+      text-black/45
+    "
+  >
+    Projects
+  </p>
+</div>
               </div>
             </div>
           </div>
         </section>
 
-        {/* Categories */}
         <section
           className="
             bg-white py-16
@@ -442,7 +445,6 @@ function MediaProductionPage() {
           </div>
         </section>
 
-        {/* CTA */}
         <section
           className="
             bg-[#f5f5f5]

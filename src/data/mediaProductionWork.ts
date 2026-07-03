@@ -27,7 +27,7 @@ export const getDriveViewUrl = (driveId: string) =>
   `https://drive.google.com/file/d/${driveId}/view`;
 
 export const getDriveThumbnailUrl = (driveId: string) =>
-  `https://drive.google.com/thumbnail?id=${driveId}&sz=w1200`;
+  `https://drive.google.com/thumbnail?id=${driveId}&sz=w800`;
 
 export const mediaProductionCategories: MediaCategory[] = [
   {

@@ -1,8 +1,12 @@
-import { useState } from "react";
+import {
+  useEffect,
+  useRef,
+  useState,
+} from "react";
 import type { KeyboardEvent } from "react";
 import {
-  ArrowUpRight,
-  FolderOpen,
+  LoaderCircle,
+  Play,
 } from "lucide-react";
 import {
   getDrivePreviewUrl,
@@ -22,14 +26,72 @@ function MediaCategoryShowcase({
   category,
   onPlay,
 }: MediaCategoryShowcaseProps) {
-  const [activeIndex, setActiveIndex] = useState(0);
+  const previewRef =
+    useRef<HTMLDivElement | null>(null);
+
+  const [activeIndex, setActiveIndex] =
+    useState(0);
+
+  const [shouldLoadPreview, setShouldLoadPreview] =
+    useState(false);
+
+  const [isPreviewLoading, setIsPreviewLoading] =
+    useState(true);
 
   const activeVideo =
     category.videos[activeIndex] ??
     category.videos[0];
 
-  const playVideo = (video: MediaVideo) => {
-    onPlay(video, category.title);
+  useEffect(() => {
+    const previewElement = previewRef.current;
+
+    if (!previewElement) {
+      return;
+    }
+
+    if (
+      typeof IntersectionObserver ===
+      "undefined"
+    ) {
+      setShouldLoadPreview(true);
+      return;
+    }
+
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setShouldLoadPreview(true);
+          observer.disconnect();
+        }
+      },
+      {
+        rootMargin: "180px 0px",
+        threshold: 0.01,
+      },
+    );
+
+    observer.observe(previewElement);
+
+    return () => {
+      observer.disconnect();
+    };
+  }, []);
+
+  useEffect(() => {
+    if (shouldLoadPreview) {
+      setIsPreviewLoading(true);
+    }
+  }, [
+    activeVideo?.driveId,
+    shouldLoadPreview,
+  ]);
+
+  if (!activeVideo) {
+    return null;
+  }
+
+  const playVideo = () => {
+    onPlay(activeVideo, category.title);
   };
 
   const handlePreviewKeyDown = (
@@ -40,122 +102,9 @@ function MediaCategoryShowcase({
       event.key === " "
     ) {
       event.preventDefault();
-
-      if (activeVideo) {
-        playVideo(activeVideo);
-      }
+      playVideo();
     }
   };
-
-  /* الكاتيجوري التي تحتوي على Folder فقط */
-  if (!activeVideo) {
-    return (
-      <article
-        className="
-          flex h-full flex-col
-          overflow-hidden rounded-[24px]
-          bg-white p-5
-          shadow-[0_16px_45px_rgba(0,0,0,0.06)]
-          sm:p-6
-        "
-      >
-        <div>
-          <p
-            className="
-              text-[11px] font-bold uppercase
-              tracking-[0.2em] text-black/40
-            "
-          >
-            {category.type}
-          </p>
-
-          <h2
-            className="
-              mt-3
-              text-[clamp(1.7rem,2.6vw,2.5rem)]
-              font-black leading-[0.98]
-              tracking-[-0.045em]
-            "
-          >
-            {category.title}
-          </h2>
-
-          <p className="mt-3 text-sm text-black/45">
-            Project Folder
-          </p>
-        </div>
-
-        <a
-          href={category.folderUrl ?? "#"}
-          target="_blank"
-          rel="noreferrer"
-          className="
-            group relative mt-7
-            flex min-h-[320px]
-            flex-1 items-center
-            justify-center overflow-hidden
-            rounded-[20px] bg-black
-            text-white
-          "
-        >
-          <img
-            src={
-              category.fallbackImage ||
-              "/images/service-video-editing.png"
-            }
-            alt=""
-            className="
-              absolute inset-0
-              h-full w-full object-cover
-              opacity-35
-              transition-transform duration-700
-              group-hover:scale-105
-            "
-          />
-
-          <span
-            className="
-              absolute inset-0
-              bg-gradient-to-t
-              from-black via-black/45 to-black/20
-            "
-          />
-
-          <span
-            className="
-              relative flex flex-col
-              items-center text-center
-            "
-          >
-            <span
-              className="
-                grid size-16 place-items-center
-                rounded-full bg-white
-                text-black
-              "
-            >
-              <FolderOpen size={25} />
-            </span>
-
-            <span className="mt-5 text-xl font-black">
-              View Education Projects
-            </span>
-
-            <span
-              className="
-                mt-2 inline-flex
-                items-center gap-2
-                text-sm text-white/55
-              "
-            >
-              Open Google Drive Folder
-              <ArrowUpRight size={16} />
-            </span>
-          </span>
-        </a>
-      </article>
-    );
-  }
 
   return (
     <article
@@ -167,7 +116,6 @@ function MediaCategoryShowcase({
         sm:p-6
       "
     >
-      {/* عنوان الكاتيجوري */}
       <div>
         <p
           className="
@@ -194,49 +142,102 @@ function MediaCategoryShowcase({
         </p>
       </div>
 
-      {/* معاينة الفيديو */}
       <div
+        ref={previewRef}
         role="button"
         tabIndex={0}
-        onClick={() => playVideo(activeVideo)}
+        onClick={playVideo}
         onKeyDown={handlePreviewKeyDown}
         className="
           group relative mt-7
           aspect-[16/10] cursor-pointer
           overflow-hidden rounded-[20px]
-          bg-black outline-none
+          bg-[#e8e8e8] outline-none
           focus-visible:ring-4
           focus-visible:ring-black/15
         "
         aria-label={`Play ${activeVideo.title}`}
       >
-        <iframe
-          key={activeVideo.driveId}
-          src={getDrivePreviewUrl(
-            activeVideo.driveId,
-          )}
-          title={`${category.title} preview`}
-          loading="lazy"
-          tabIndex={-1}
-          aria-hidden="true"
-          className="
-            pointer-events-none
-            absolute inset-0
-            h-full w-full
-          "
-          allow="autoplay; fullscreen"
-        />
+        {!shouldLoadPreview && (
+          <div
+            className="
+              absolute inset-0
+              animate-pulse bg-[#e6e6e6]
+            "
+          />
+        )}
+
+        {shouldLoadPreview && (
+          <>
+            {isPreviewLoading && (
+              <div
+                className="
+                  absolute inset-0 z-10
+                  grid place-items-center
+                  bg-[#e8e8e8]
+                "
+              >
+                <LoaderCircle
+                  size={28}
+                  className="
+                    animate-spin text-black/40
+                  "
+                />
+              </div>
+            )}
+
+            <iframe
+              key={activeVideo.driveId}
+              src={getDrivePreviewUrl(
+                activeVideo.driveId,
+              )}
+              title={`${category.title} preview`}
+              loading="lazy"
+              tabIndex={-1}
+              aria-hidden="true"
+              onLoad={() =>
+                setIsPreviewLoading(false)
+              }
+              className="
+                pointer-events-none
+                absolute inset-0
+                h-full w-full
+              "
+              allow="autoplay; fullscreen"
+            />
+          </>
+        )}
 
         <span
           className="
-            pointer-events-none
-            absolute inset-0
+            pointer-events-none absolute inset-0
             bg-gradient-to-t
             from-black/75
             via-transparent
             to-black/5
           "
         />
+
+        <span
+          className="
+            pointer-events-none
+            absolute left-1/2 top-1/2
+            grid size-16
+            -translate-x-1/2
+            -translate-y-1/2
+            place-items-center
+            rounded-full bg-white
+            text-black
+            shadow-[0_14px_36px_rgba(0,0,0,0.22)]
+            transition-transform duration-300
+            group-hover:scale-110
+          "
+        >
+          <Play
+            size={22}
+            fill="currentColor"
+          />
+        </span>
 
         <span
           className="
@@ -282,7 +283,6 @@ function MediaCategoryShowcase({
         </span>
       </div>
 
-      {/* اختيار المشروع */}
       <div className="mt-5">
         <p
           className="
@@ -317,7 +317,7 @@ function MediaCategoryShowcase({
                     setActiveIndex(index)
                   }
                   onClick={() =>
-                    playVideo(video)
+                    setActiveIndex(index)
                   }
                   className={`
                     shrink-0 rounded-full
@@ -338,7 +338,7 @@ function MediaCategoryShowcase({
                         `
                     }
                   `}
-                  aria-label={`Open ${video.title}`}
+                  aria-label={`Preview ${video.title}`}
                 >
                   {String(index + 1).padStart(
                     2,
