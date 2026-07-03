@@ -7,6 +7,8 @@ import About from "../sections/About";
 import Services from "../sections/Services";
 import WhyChooseUs from "../sections/WhyChooseUs";
 import AboutAlternative from "../sections/AboutAlternative";
+import Clients from "../sections/Clients";
+import Process from "../sections/Process";
 
 function HomePage() {
   return (
@@ -19,6 +21,8 @@ function HomePage() {
         <About />
         <AboutAlternative/>
         <Services />
+         <Clients />
+        <Process />
         <WhyChooseUs />
       </main>
 

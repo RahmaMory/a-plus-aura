@@ -12,6 +12,8 @@ const featuredService = {
     "A complete marketing solution for brands that need strategy, performance marketing, media buying, graphic design, and video editing managed together by one professional team.",
   image: "/images/service-full-package.png",
   icon: Layers3,
+    href: "#contact",
+  cta: "Request This Service",
 };
 
 const services = [
@@ -21,21 +23,27 @@ const services = [
       "Data-driven campaigns built to reach the right audience, increase conversions, and maximize return on advertising spend.",
     image: "/images/service-performance.png",
     icon: ChartNoAxesCombined,
+      href: "#contact",
+  cta: "Request This Service",
   },
+ {
+  title: "social media",
+  description:
+    "Distinctive visual designs and campaign creatives that keep your brand consistent, recognizable, and memorable.",
+  image: "/images/service-graphic-design.png",
+  icon: PenTool,
+  href: "#contact",
+  cta: "Request This Service",
+},
   {
-    title: "social media",
-    description:
-      "Distinctive visual designs and campaign creatives that keep your brand consistent, recognizable, and memorable.",
-    image: "/images/service-graphic-design.png",
-    icon: PenTool,
-  },
-  {
-    title: "media production",
-    description:
-      "Professional editing for reels, advertisements, promotional videos, and social content designed to hold attention.",
-    image: "/images/service-video-editing.png",
-    icon: Clapperboard,
-  },
+  title: "media production",
+  description:
+    "Professional editing for reels, advertisements, promotional videos, and social content designed to hold attention.",
+  image: "/images/service-video-editing.png",
+  icon: Clapperboard,
+  href: "/services/media-production",
+  cta: "View Our Work",
+},
 ];
 
 function Services() {
@@ -250,23 +258,23 @@ function Services() {
                   </p>
 
                   <a
-                    href="#contact"
-                    className="
-                      mt-auto inline-flex items-center gap-2
-                      pt-7 text-sm font-bold text-black
-                    "
-                  >
-                    <span>Request This Service</span>
+  href={service.href}
+  className="
+    mt-auto inline-flex items-center gap-2
+    pt-7 text-sm font-bold text-black
+  "
+>
+  <span>{service.cta}</span>
 
-                    <ArrowUpRight
-                      size={17}
-                      className="
-                        transition-transform duration-300
-                        group-hover:translate-x-1
-                        group-hover:-translate-y-1
-                      "
-                    />
-                  </a>
+  <ArrowUpRight
+    size={17}
+    className="
+      transition-transform duration-300
+      group-hover:translate-x-1
+      group-hover:-translate-y-1
+    "
+  />
+</a>
                 </div>
               </article>
             );

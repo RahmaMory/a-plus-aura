@@ -1,9 +1,9 @@
 
 const navigationLinks = [
-  { label: "Home", href: "#home" },
+  
   { label: "About Us", href: "#about" },
   { label: "Services", href: "#services" },
-  { label: "Our Work", href: "#work" },
+    { label: "Clients", href: "#clients" },
   { label: "Why Choose Us", href: "#why-us" },
   { label: "Contact", href: "#contact" },
 ];
@@ -207,20 +207,10 @@ function Footer() {
                 hover:text-white
               "
             >
-              Privacy Policy
+              Privacy Policy&Termes
             </a>
 
-            <a
-              href="#"
-              className="
-                text-xs text-white/40
-                transition-colors duration-200
-                hover:text-white
-              "
-            >
-              Terms & Conditions
-            </a>
-
+           
            
           </div>
         </div>

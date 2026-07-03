@@ -2,10 +2,10 @@ import { useState } from "react";
 import { Menu, X } from "lucide-react";
 import ProjectFormModal from "../ui/ProjectFormModal";
 const navigationLinks = [
-  { label: "Home", href: "#home" },
   { label: "About Us", href: "#about" },
   { label: "Services", href: "#services" },
-  { label: "Our Work", href: "#work" },
+  { label: "Process", href: "#process" },
+  { label: "Clients", href: "#clients" },
   { label: "Why Choose Us", href: "#why-us" },
   { label: "Contact", href: "#contact" },
 ];
