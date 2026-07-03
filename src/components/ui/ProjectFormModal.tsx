@@ -141,22 +141,23 @@ const handleSubmit = async (
           }
         }}
       >
-        <div
-          role="dialog"
-          aria-modal="true"
-          aria-labelledby="project-form-title"
-          onMouseDown={(event) => event.stopPropagation()}
-          className="
-            relative grid
-            max-h-[calc(100vh-3rem)]
-            w-full max-w-[980px]
-            overflow-y-auto
-            rounded-[28px]
-            bg-white text-black
-            shadow-[0_40px_120px_rgba(0,0,0,0.5)]
-            lg:grid-cols-[0.8fr_1.2fr]
-          "
-        >
+  <div
+  role="dialog"
+  aria-modal="true"
+  aria-labelledby="project-form-title"
+  onMouseDown={(event) => event.stopPropagation()}
+  className="
+    isolate relative grid
+    max-h-[calc(100vh-3rem)]
+    w-full max-w-[1040px]
+    overflow-y-auto
+    rounded-[28px]
+    bg-white text-black
+    shadow-[0_40px_120px_rgba(0,0,0,0.5)]
+    lg:grid-cols-[280px_minmax(0,1fr)]
+    lg:overflow-hidden
+  "
+>
           {/* زر الإغلاق */}
           <button
             type="button"
@@ -179,17 +180,18 @@ const handleSubmit = async (
           </button>
 
           {/* الجزء الأسود */}
-          <div
-            className="
-              relative overflow-hidden
-              bg-black px-7 py-10
-              text-white
-              sm:px-10 sm:py-12
-              lg:flex lg:min-h-[680px]
-              lg:flex-col lg:justify-between
-              lg:px-12 lg:py-14
-            "
-          >
+  <div
+  className="
+    relative z-20 min-w-0 overflow-visible
+    bg-black px-7 py-10
+    text-white
+    sm:px-9 sm:py-12
+    lg:flex lg:min-h-[680px]
+    lg:flex-col lg:justify-between
+    lg:px-6 lg:py-14
+  "
+
+>
             <div
               className="
                 pointer-events-none
@@ -218,30 +220,60 @@ const handleSubmit = async (
               >
                 Start Your Project
               </p>
+<h2
+  id="project-form-title"
+  className="
+    relative z-40 mt-6
+    text-[clamp(2.25rem,3vw,2.75rem)]
+    font-black leading-[0.94]
+    tracking-[-0.055em]
+    text-white
+  "
+>
+  <span className="block whitespace-nowrap">
+    Let&apos;s Build
+  </span>
 
-              <h2
-                id="project-form-title"
-                className="
-                  mt-6 max-w-[440px]
-                  text-[clamp(2.5rem,5vw,4.7rem)]
-                  font-black leading-[0.9]
-                  tracking-[-0.06em]
-                "
-              >
-                Let&apos;s Build Something That Gets Results.
-              </h2>
+  {/* الموبايل */}
+  <span className="block whitespace-nowrap lg:hidden">
+    Something
+  </span>
 
-              <p
-                className="
-                  mt-7 max-w-[390px]
-                  text-sm leading-7 text-white/55
-                  sm:text-base
-                "
-              >
-                Tell us about your business and the service you need. Our team
-                will contact you to discuss the right solution for your brand.
-              </p>
-            </div>
+  {/* اللابتوب: ng تبدأ عند حافة الجزء الأبيض بالضبط */}
+  <span
+    className="
+      relative hidden h-[1em]
+      lg:mr-[-1.5rem] lg:block
+    "
+  >
+    <span
+      className="
+        absolute right-0 top-0
+        whitespace-nowrap text-white
+      "
+    >
+      Somethi
+    </span>
+
+    <span
+      className="
+        absolute left-full top-0
+        whitespace-nowrap text-black
+      "
+    >
+      ng
+    </span>
+  </span>
+
+  <span className="block whitespace-nowrap">
+    to Become
+  </span>
+
+  <span className="block whitespace-nowrap">
+    A Plus.
+  </span>
+</h2>
+     </div>
 
             <div
               className="
@@ -274,13 +306,16 @@ const handleSubmit = async (
           </div>
 
           {/* الجزء الأبيض */}
-          <div
-            className="
-              px-6 py-10
-              sm:px-10 sm:py-12
-              lg:px-12 lg:py-14
-            "
-          >
+  <div
+  className="
+    relative z-10 min-w-0 bg-white
+    px-6 py-10
+    sm:px-10 sm:py-12
+    lg:max-h-[calc(100vh-3rem)]
+    lg:overflow-y-auto
+    lg:pb-14 lg:pl-24 lg:pr-12 lg:pt-14
+  "
+>
             {isSubmitted ? (
               <div
                 className="
