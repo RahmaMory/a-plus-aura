@@ -11,11 +11,9 @@ import {
 } from "lucide-react";
 import {
   getDrivePreviewUrl,
-  getDriveThumbnailUrl,
   getDriveViewUrl,
   type MediaVideo,
 } from "../data/mediaProductionWork";
-
 type Props = {
   video: MediaVideo | null;
   categoryTitle: string;
@@ -188,16 +186,14 @@ function DriveVideoModal({
               "
             >
               <img
-                src={getDriveThumbnailUrl(
-                  video.driveId,
-                )}
-                alt=""
-                className="
-                  absolute inset-0
-                  h-full w-full object-cover
-                  opacity-35 blur-sm
-                "
-              />
+  src={video.poster}
+  alt=""
+  className="
+    absolute inset-0
+    h-full w-full object-cover
+    opacity-35 blur-sm
+  "
+/>
 
               <span
                 className="

@@ -278,7 +278,7 @@ function MediaProductionPage() {
                         className="
                           h-full w-full 
                           opacity-90 scale-110
-                          interest-0 blur-lg
+                          interest-0 
 
                          
                         "
