@@ -200,7 +200,7 @@ function Footer() {
 
           <div className="flex flex-wrap items-center gap-x-6 gap-y-3">
             <a
-              href="#"
+             href="/privacy-policy"
               className="
                 text-xs text-white/40
                 transition-colors duration-200
