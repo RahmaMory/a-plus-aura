@@ -23,14 +23,14 @@ const services = [
     icon: ChartNoAxesCombined,
   },
   {
-    title: "Graphic Design",
+    title: "social media",
     description:
       "Distinctive visual designs and campaign creatives that keep your brand consistent, recognizable, and memorable.",
     image: "/images/service-graphic-design.png",
     icon: PenTool,
   },
   {
-    title: "Video Editing",
+    title: "media production",
     description:
       "Professional editing for reels, advertisements, promotional videos, and social content designed to hold attention.",
     image: "/images/service-video-editing.png",

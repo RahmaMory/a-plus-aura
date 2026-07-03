@@ -1,71 +1,165 @@
+import { useEffect, useRef, useState } from "react";
+
 const stats = [
   {
-    value: "100+",
-    label: "Clients",
+    value: 2500,
+    category: "VIDEOS",
+    description: "Videos Produced",
   },
   {
-    value: "2,500+",
-    label: "Videos Produced",
+    value: 100,
+    category: "CLIENTS",
+    description: "Happy Clients",
+  },
+  {
+    value: 8,
+    category: "INDUSTRIES",
+    description: "Industries We Serve",
+  },
+  {
+    value: 160,
+    category: "CAMPAIGNS",
+    description: "Managed for Clients",
   },
 ];
 
+const animationDuration = 1800;
+
 function Stats() {
+  const sectionRef = useRef<HTMLElement | null>(null);
+  const animationFrameRef = useRef<number | null>(null);
+
+  const [displayValues, setDisplayValues] = useState<number[]>(
+    stats.map(() => 0),
+  );
+
+  useEffect(() => {
+    const section = sectionRef.current;
+
+    if (!section) {
+      return;
+    }
+
+    const stopAnimation = () => {
+      if (animationFrameRef.current !== null) {
+        cancelAnimationFrame(animationFrameRef.current);
+        animationFrameRef.current = null;
+      }
+    };
+
+    const startAnimation = () => {
+      stopAnimation();
+      setDisplayValues(stats.map(() => 0));
+
+      let startTime: number | null = null;
+
+      const animate = (currentTime: number) => {
+        if (startTime === null) {
+          startTime = currentTime;
+        }
+
+        const elapsedTime = currentTime - startTime;
+        const progress = Math.min(elapsedTime / animationDuration, 1);
+
+        // حركة سريعة في البداية وهادئة عند الوصول للرقم النهائي
+        const easedProgress = 1 - Math.pow(1 - progress, 3);
+
+        setDisplayValues(
+          stats.map((stat) => Math.round(stat.value * easedProgress)),
+        );
+
+        if (progress < 1) {
+          animationFrameRef.current = requestAnimationFrame(animate);
+        } else {
+          animationFrameRef.current = null;
+        }
+      };
+
+      animationFrameRef.current = requestAnimationFrame(animate);
+    };
+
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          startAnimation();
+        } else {
+          stopAnimation();
+          setDisplayValues(stats.map(() => 0));
+        }
+      },
+      {
+        threshold: 0.35,
+      },
+    );
+
+    observer.observe(section);
+
+    return () => {
+      observer.disconnect();
+      stopAnimation();
+    };
+  }, []);
+
   return (
     <section
+      ref={sectionRef}
       className="w-full bg-black text-white"
       aria-label="A Plus Aura achievements"
     >
       <div className="mx-auto max-w-[1280px] px-5 sm:px-8">
-        <div className="grid grid-cols-2">
+        <div className="grid grid-cols-2 lg:grid-cols-4">
           {stats.map((stat, index) => (
-            <div
-              key={stat.label}
+            <article
+              key={stat.category}
               className={`
-                group relative flex min-h-[220px]
-                flex-col justify-center
-                py-12
-                sm:min-h-[250px] sm:py-14
-                lg:min-h-[300px] lg:py-16
+                relative flex min-h-[190px] flex-col justify-center
+                px-5 py-10
+                sm:min-h-[220px] sm:px-8 sm:py-12
+                lg:min-h-[250px] lg:px-9 lg:py-14
 
-                ${
-                  index === 0
-                    ? "pr-5 sm:pr-10 lg:pr-16"
-                    : "pl-5 sm:pl-10 lg:pl-16"
-                }
+                ${index % 2 === 1 ? "border-l border-white/15" : ""}
+                ${index >= 2 ? "border-t border-white/15 lg:border-t-0" : ""}
+                ${index > 0 ? "lg:border-l lg:border-white/15" : ""}
               `}
             >
-              {/* الفاصل بين الرقمين */}
-              {index === 1 && (
-                <span
-                  className="
-                    absolute bottom-[18%] left-0 top-[18%]
-                    w-px bg-white/20
-                  "
-                  aria-hidden="true"
-                />
-              )}
-
-           <strong
-  className="
-    text-[clamp(2.2rem,5vw,4.5rem)]
-    font-black
-    leading-none
-    tracking-[-0.04em]
-  "
->
-  {stat.value}
-</strong>
-              <span
+              <strong
                 className="
-                  mt-4 text-base font-semibold
-                  text-white/65
-                  sm:mt-5 sm:text-xl
-                  lg:text-2xl
+                  text-[clamp(2.5rem,4.5vw,4.5rem)]
+                  font-black leading-none
+                  tracking-[-0.045em]
+                  tabular-nums
                 "
               >
-                {stat.label}
-              </span>
-            </div>
+                {displayValues[index].toLocaleString("en-US")}
+              </strong>
+
+              <div className="mt-3 flex items-center gap-2">
+                <span className="text-xl font-black leading-none text-white sm:text-2xl">
+                  +
+                </span>
+
+                <span
+                  className="
+                    text-xs font-bold uppercase
+                    tracking-[0.16em] text-white
+                    sm:text-sm
+                  "
+                >
+                  {stat.category}
+                </span>
+              </div>
+
+              <p
+                className="
+                  mt-3 max-w-[210px]
+                  text-sm font-medium leading-6
+                  text-white/50
+                  sm:text-base
+                "
+              >
+                {stat.description}
+              </p>
+            </article>
           ))}
         </div>
       </div>

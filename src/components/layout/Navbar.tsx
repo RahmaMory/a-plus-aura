@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { Menu, X } from "lucide-react";
-
+import ProjectFormModal from "../ui/ProjectFormModal";
 const navigationLinks = [
   { label: "Home", href: "#home" },
   { label: "About Us", href: "#about" },
@@ -12,7 +12,7 @@ const navigationLinks = [
 
 function Navbar() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-
+const [isProjectFormOpen, setIsProjectFormOpen] = useState(false);
   const closeMenu = () => {
     setIsMenuOpen(false);
   };
@@ -64,20 +64,21 @@ function Navbar() {
         </div>
 
         {/* Desktop CTA */}
-        <a
-          href="#contact"
-          className="
-            hidden min-h-11 shrink-0
-            items-center justify-center
-            bg-black px-6 py-3
-            text-sm font-semibold text-white
-            transition-colors duration-300
-            hover:bg-black/80
-            lg:inline-flex
-          "
-        >
-          Start Your Project
-        </a>
+       <button
+  type="button"
+  onClick={() => setIsProjectFormOpen(true)}
+  className="
+    hidden min-h-11 shrink-0
+    items-center justify-center
+    bg-black px-6 py-3
+    text-sm font-semibold text-white
+    transition-colors duration-300
+    hover:bg-black/80
+    lg:inline-flex
+  "
+>
+  Start Your Project
+</button>
 
         {/* Mobile menu button */}
         <button
@@ -136,23 +137,29 @@ function Navbar() {
               </a>
             ))}
           </div>
-
-          <a
-            href="#contact"
-            onClick={closeMenu}
-            className="
-              mt-5 flex min-h-12 w-full
-              items-center justify-center
-              bg-black px-5 py-3
-              font-semibold text-white
-              transition-colors duration-300
-              hover:bg-black/80
-            "
-          >
-            Start Your Project
-          </a>
+<button
+  type="button"
+  onClick={() => {
+    closeMenu();
+    setIsProjectFormOpen(true);
+  }}
+  className="
+    mt-5 flex min-h-12 w-full
+    items-center justify-center
+    bg-black px-5 py-3
+    font-semibold text-white
+    transition-colors duration-300
+    hover:bg-black/80
+  "
+>
+  Start Your Project
+</button>
         </div>
       </div>
+      <ProjectFormModal
+  isOpen={isProjectFormOpen}
+  onClose={() => setIsProjectFormOpen(false)}
+/>
     </header>
   );
 }
