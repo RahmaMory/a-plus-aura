@@ -52,7 +52,7 @@ function Services() {
   return (
     <section
       id="services"
-      className="scroll-mt-24 bg-[#f5f5f5] py-16 sm:py-20 lg:py-28"
+      className="scroll-mt-24 bg-[#FAFAFA py-16 sm:py-20 lg:py-28"
     >
       <div className="mx-auto max-w-[1280px] px-5 sm:px-8">
         {/* عنوان القسم */}

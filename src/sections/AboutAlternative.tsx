@@ -92,7 +92,7 @@ function AboutAlternative() {
           <article
             className="
               border border-black/15
-              bg-[#f5f5f5] p-7
+              bg-[#FAFAFA] p-7
               transition-all duration-300
               hover:-translate-y-1
               hover:border-black
@@ -125,7 +125,7 @@ function AboutAlternative() {
           <article
             className="
               border border-black/15
-              bg-[#f5f5f5] p-7
+              bg-[#FAFAFA] p-7
               transition-all duration-300
               hover:-translate-y-1
               hover:border-black

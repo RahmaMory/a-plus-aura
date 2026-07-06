@@ -418,14 +418,15 @@ function MediaCategoryShowcase({
 
   return (
     <article
-      className="
-        flex h-full flex-col
-        overflow-hidden rounded-[24px]
-        bg-white p-5
-        shadow-[0_16px_45px_rgba(0,0,0,0.06)]
-        sm:p-6
-      "
-    >
+  className="
+    flex h-full w-full
+    min-w-0 max-w-full flex-col
+    overflow-hidden rounded-[24px]
+    bg-white p-4
+    shadow-[0_16px_45px_rgba(0,0,0,0.06)]
+    sm:p-6
+  "
+>
       <div>
         <p
           className="
@@ -453,19 +454,20 @@ function MediaCategoryShowcase({
       </div>
 
       {/* صورة محلية فقط — مفيش iframe ومفيش Google Drive thumbnail */}
-      <div
-        role="button"
-        tabIndex={0}
-        onClick={playVideo}
-        onKeyDown={handlePreviewKeyDown}
-        className="
-          group relative mt-7
-          aspect-[16/10] cursor-pointer
-          overflow-hidden rounded-[20px]
-          bg-[#e8e8e8] outline-none
-          focus-visible:ring-4
-          focus-visible:ring-black/15
-        "
+     <div
+  role="button"
+  tabIndex={0}
+  onClick={playVideo}
+  onKeyDown={handlePreviewKeyDown}
+  className="
+    group relative mt-7
+    aspect-[16/10] w-full
+    max-w-full cursor-pointer
+    overflow-hidden rounded-[20px]
+    bg-[#FAFAFA] outline-none
+    focus-visible:ring-4
+    focus-visible:ring-black/15
+  "
         aria-label={`Play ${activeVideo.title}`}
       >
         {isPosterLoading && (
@@ -590,14 +592,14 @@ function MediaCategoryShowcase({
           Explore Projects
         </p>
 
-        <div
-          className="
-            mt-3 flex gap-2
-            overflow-x-auto pb-2
-            [scrollbar-width:none]
-            [&::-webkit-scrollbar]:hidden
-          "
-        >
+       <div
+  className="
+    mt-3 flex max-w-full
+    gap-2 overflow-x-auto pb-2
+    [scrollbar-width:none]
+    [&::-webkit-scrollbar]:hidden
+  "
+>
           {category.videos.map(
             (video, index) => {
               const isActive =

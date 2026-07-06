@@ -4,6 +4,10 @@ import {
   useState,
 } from "react";
 import {
+  motion,
+  type Variants,
+} from "framer-motion";
+import {
   ArrowLeft,
   ArrowUpRight,
   Clapperboard,
@@ -20,30 +24,86 @@ type SelectedVideo = {
   categoryTitle: string;
 } | null;
 
-const heroPreviewItems = [
-  {
-    title: "Engineering & Interior Design",
-    image: "/images/media-production/hero-main.png",
+// const heroPreviewItems = [
+//   {
+//     title: "Engineering & Interior Design",
+//     image: "/images/media-production/hero-main.png",
+//   },
+//   {
+//     title: "Promo",
+//     image: "/images/media-production/hero-promo.png",
+//   },
+//   {
+//     title: "Commercial Promo",
+//     image: "/images/media-production/hero-commercial.png",
+//   },
+//   {
+//     title: "Motion Edits",
+//     image: "/images/media-production/hero-editing.png",
+//   },
+// ];
+// const collageClasses = [
+//   "col-span-7 row-span-6",
+//   "col-span-5 row-span-3",
+//   "col-span-3 row-span-3",
+//   "col-span-2 row-span-3",
+// ];
+
+const fadeUp: Variants = {
+  hidden: {
+    opacity: 0,
+    y: 28,
   },
-  {
-    title: "Promo",
-    image: "/images/media-production/hero-promo.png",
+  visible: {
+    opacity: 1,
+    y: 0,
+    transition: {
+      duration: 0.7,
+      ease: [0.22, 1, 0.36, 1],
+    },
   },
-  {
-    title: "Commercial Promo",
-    image: "/images/media-production/hero-commercial.png",
+};
+
+const fadeDown: Variants = {
+  hidden: {
+    opacity: 0,
+    y: -18,
   },
-  {
-    title: "Motion Edits",
-    image: "/images/media-production/hero-editing.png",
+  visible: {
+    opacity: 1,
+    y: 0,
+    transition: {
+      duration: 0.55,
+      ease: [0.22, 1, 0.36, 1],
+    },
   },
-];
-const collageClasses = [
-  "col-span-7 row-span-6",
-  "col-span-5 row-span-3",
-  "col-span-3 row-span-3",
-  "col-span-2 row-span-3",
-];
+};
+
+const staggerContainer: Variants = {
+  hidden: {},
+  visible: {
+    transition: {
+      staggerChildren: 0.12,
+    },
+  },
+};
+
+const scaleIn: Variants = {
+  hidden: {
+    opacity: 0,
+    y: 18,
+    scale: 0.96,
+  },
+  visible: {
+    opacity: 1,
+    y: 0,
+    scale: 1,
+    transition: {
+      duration: 0.55,
+      ease: [0.22, 1, 0.36, 1],
+    },
+  },
+};
 
 function MediaProductionPage() {
   const [selectedVideo, setSelectedVideo] =
@@ -81,8 +141,11 @@ function MediaProductionPage() {
     );
 
   return (
-    <div className="min-h-screen bg-white text-black">
-      <header
+   <div className="min-h-screen overflow-x-hidden bg-white text-black">
+      <motion.header
+        variants={fadeDown}
+        initial="hidden"
+        animate="visible"
         className="
           sticky top-0 z-50
           border-b border-black/10
@@ -90,12 +153,13 @@ function MediaProductionPage() {
         "
       >
         <div
-          className="
-            mx-auto flex min-h-[78px]
-            max-w-[1280px]
-            items-center justify-between
-            gap-5 px-5 sm:px-8
-          "
+         className="
+  mx-auto flex min-h-[70px]
+  max-w-[1280px]
+  items-center justify-between
+  gap-3 px-4 sm:min-h-[78px]
+  sm:gap-5 sm:px-8
+"
         >
           <a
             href="/"
@@ -105,21 +169,22 @@ function MediaProductionPage() {
             <img
               src="/logo.png"
               alt="A Plus Aura"
-              className="
-                h-16 w-auto object-contain
-                sm:h-20
-              "
+             className="
+  h-12 w-auto object-contain
+  sm:h-20
+"
             />
           </a>
 
           <a
             href="/#services"
             className="
-              group inline-flex items-center
-              gap-2 rounded-full
-              bg-black px-5 py-3
-              text-sm font-semibold text-white
-            "
+  group inline-flex shrink-0 items-center
+  gap-2 rounded-full
+  bg-black px-4 py-2.5
+  text-xs font-semibold text-white
+  sm:px-5 sm:py-3 sm:text-sm
+"
           >
             <ArrowLeft
               size={17}
@@ -132,14 +197,16 @@ function MediaProductionPage() {
             Back to Services
           </a>
         </div>
-      </header>
+      </motion.header>
 
       <main>
         <section
           className="
-            relative overflow-hidden
-            bg-[#f5f5f5]
-            py-16 sm:py-20 lg:py-24
+            relative flex min-h-[620px]
+            items-center overflow-hidden
+            bg-[#FAFAFA]
+            py-20 sm:py-24 lg:min-h-[690px]
+            lg:py-32
           "
         >
           <div
@@ -153,17 +220,21 @@ function MediaProductionPage() {
 
           <div
             className="
-              mx-auto grid max-w-[1280px]
-              items-center gap-12
+              mx-auto flex max-w-[1280px]
+              justify-center
               px-5 sm:px-8
-              lg:grid-cols-[0.82fr_1.18fr]
-              lg:gap-14
             "
           >
-            <div className="relative z-10">
-              <p
+            <motion.div
+              variants={staggerContainer}
+              initial="hidden"
+              animate="visible"
+              className="relative z-10 mx-auto flex max-w-[860px] flex-col items-center text-center"
+            >
+              <motion.p
+                variants={fadeUp}
                 className="
-                  flex items-center gap-3
+                  flex items-center justify-center gap-3
                   text-xs font-bold uppercase
                   tracking-[0.22em]
                   text-black/40
@@ -171,25 +242,29 @@ function MediaProductionPage() {
               >
                 <Clapperboard size={17} />
                 Our Work
-              </p>
+              </motion.p>
 
-              <h1
-                className="
-                  mt-7
-                  text-[clamp(3.5rem,7vw,7rem)]
-                  font-black leading-[0.82]
-                  tracking-[-0.07em]
-                  text-black
-                "
+              <motion.h1
+                variants={fadeUp}
+               className="
+  mt-7
+  max-w-full
+  text-[clamp(3.15rem,15vw,8.4rem)]
+  font-black leading-[0.84]
+  tracking-[-0.065em]
+  text-black
+  sm:tracking-[-0.075em]
+"
               >
                 Media
 
                 <span className="block text-black/35">
                   Production.
                 </span>
-              </h1>
+              </motion.h1>
 
-              <p
+              <motion.p
+                variants={fadeUp}
                 className="
                   mt-8 max-w-[550px]
                   text-base leading-8
@@ -197,47 +272,51 @@ function MediaProductionPage() {
                   sm:text-lg
                 "
               >
-                Selected work organized by industry
-                and content format.
-              </p>
+                High-quality videos and creatives that stop the scroll and convert viewers into paying customers.
+              </motion.p>
 
-              <div className="mt-9 flex flex-wrap gap-3">
-  <div
-    className="
-      rounded-2xl bg-white
-      px-6 py-4
-      shadow-[0_12px_35px_rgba(0,0,0,0.05)]
-    "
-  >
-    <p className="text-2xl font-black">
-      {mediaProductionCategories.length}
-    </p>
+              <motion.div
+                variants={staggerContainer}
+                className="mt-9 flex flex-wrap justify-center gap-3"
+              >
+                <motion.div
+                  variants={scaleIn}
+                  className="
+                    rounded-2xl bg-white
+                    px-6 py-4
+                    shadow-[0_12px_35px_rgba(0,0,0,0.05)]
+                  "
+                >
+                  <p className="text-2xl font-black">
+                    {mediaProductionCategories.length}
+                  </p>
 
-    <p className="mt-1 text-xs text-black/40">
-      Categories
-    </p>
-  </div>
+                  <p className="mt-1 text-xs text-black/40">
+                    Categories
+                  </p>
+                </motion.div>
 
-  <div
-    className="
-      rounded-2xl bg-white
-      px-6 py-4
-      shadow-[0_12px_35px_rgba(0,0,0,0.05)]
-    "
-  >
-    <p className="text-2xl font-black">
-      +{totalVideos}
-    </p>
+                <motion.div
+                  variants={scaleIn}
+                  className="
+                    rounded-2xl bg-white
+                    px-6 py-4
+                    shadow-[0_12px_35px_rgba(0,0,0,0.05)]
+                  "
+                >
+                  <p className="text-2xl font-black">
+                    +{totalVideos}
+                  </p>
 
-    <p className="mt-1 text-xs text-black/40">
-      Selected Projects
-    </p>
-  </div>
-</div>
-            </div>
+                  <p className="mt-1 text-xs text-black/40">
+                    Selected Projects
+                  </p>
+                </motion.div>
+              </motion.div>
+            </motion.div>
 
             {/* Static collage using local images */}
-            <div
+            {/* <div
               className="
                 relative overflow-hidden
                 rounded-[30px] bg-black
@@ -279,8 +358,6 @@ function MediaProductionPage() {
                           h-full w-full 
                           opacity-90 scale-110
                           interest-0 
-
-                         
                         "
                       />
 
@@ -361,29 +438,29 @@ function MediaProductionPage() {
                 </div>
 
                 <div
-  className="
-    shrink-0 rounded-full
-    bg-white px-5 py-3
-    text-center text-black
-    shadow-lg
-  "
->
-  <p className="text-xl font-black">
-    +{totalVideos}
-  </p>
+                  className="
+                    shrink-0 rounded-full
+                    bg-white px-5 py-3
+                    text-center text-black
+                    shadow-lg
+                  "
+                >
+                  <p className="text-xl font-black">
+                    +{totalVideos}
+                  </p>
 
-  <p
-    className="
-      text-[10px] font-bold uppercase
-      tracking-[0.13em]
-      text-black/45
-    "
-  >
-    Projects
-  </p>
-</div>
+                  <p
+                    className="
+                      text-[10px] font-bold uppercase
+                      tracking-[0.13em]
+                      text-black/45
+                    "
+                  >
+                    Projects
+                  </p>
+                </div>
               </div>
-            </div>
+            </div> */}
           </div>
         </section>
 
@@ -399,7 +476,13 @@ function MediaProductionPage() {
               px-5 sm:px-8
             "
           >
-            <div className="mb-10 sm:mb-12 lg:mb-14">
+            <motion.div
+              variants={fadeUp}
+              initial="hidden"
+              whileInView="visible"
+              viewport={{ once: true, amount: 0.35 }}
+              className="mb-10 sm:mb-12 lg:mb-14"
+            >
               <p
                 className="
                   text-xs font-bold uppercase
@@ -424,30 +507,56 @@ function MediaProductionPage() {
                   by Category.
                 </span>
               </h2>
-            </div>
+            </motion.div>
 
             <div
-              className="
-                grid gap-6
-                lg:grid-cols-2
-              "
-            >
-              {mediaProductionCategories.map(
-                (category) => (
-                  <MediaCategoryShowcase
-                    key={category.id}
-                    category={category}
-                    onPlay={openVideo}
-                  />
-                ),
-              )}
-            </div>
+  className="
+    grid w-full min-w-0
+    gap-6 overflow-visible
+    lg:grid-cols-2
+  "
+>
+  {mediaProductionCategories.map(
+    (category, index) => (
+      <motion.div
+        key={category.id}
+        className="w-full min-w-0 max-w-full"
+        initial={{
+          opacity: 0,
+          y: 34,
+        }}
+        whileInView={{
+          opacity: 1,
+          y: 0,
+        }}
+        viewport={{
+          once: true,
+          amount: 0.22,
+        }}
+        transition={{
+          duration: 0.9,
+          delay: (index % 2) * 0.22,
+          ease: [0.22, 1, 0.36, 1],
+        }}
+      >
+        <MediaCategoryShowcase
+          category={category}
+          onPlay={openVideo}
+        />
+      </motion.div>
+    ),
+  )}
+</div>
           </div>
         </section>
 
-        <section
+        <motion.section
+          variants={fadeUp}
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, amount: 0.3 }}
           className="
-            bg-[#f5f5f5]
+            bg-[#FAFAFA]
             py-16 sm:py-20
           "
         >
@@ -511,7 +620,7 @@ function MediaProductionPage() {
               />
             </a>
           </div>
-        </section>
+        </motion.section>
       </main>
 
       <footer className="bg-black py-8 text-white">

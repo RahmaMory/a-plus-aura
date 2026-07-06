@@ -31,7 +31,7 @@ function Process() {
       id="process"
       className="
         relative overflow-hidden
-        bg-[#F5F5F5] py-16
+        bg-[#FAFAFA] py-16
         text-black
         sm:py-20
         lg:py-28
@@ -124,7 +124,7 @@ function Process() {
           shadow-[0_10px_28px_rgba(0,0,0,0.18)]
         `
         : `
-          bg-[#F5F5F5]
+          bg-[#FAFAFA]
           text-black/55
           shadow-[inset_0_0_0_1.5px_rgba(0,0,0,0.22)]
         `
