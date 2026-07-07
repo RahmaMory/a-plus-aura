@@ -59,23 +59,30 @@ function Stats() {
         }
 
         const elapsedTime = currentTime - startTime;
-        const progress = Math.min(elapsedTime / animationDuration, 1);
+        const progress = Math.min(
+          elapsedTime / animationDuration,
+          1,
+        );
 
-        // حركة سريعة في البداية وهادئة عند الوصول للرقم النهائي
-        const easedProgress = 1 - Math.pow(1 - progress, 3);
+        const easedProgress =
+          1 - Math.pow(1 - progress, 3);
 
         setDisplayValues(
-          stats.map((stat) => Math.round(stat.value * easedProgress)),
+          stats.map((stat) =>
+            Math.round(stat.value * easedProgress),
+          ),
         );
 
         if (progress < 1) {
-          animationFrameRef.current = requestAnimationFrame(animate);
+          animationFrameRef.current =
+            requestAnimationFrame(animate);
         } else {
           animationFrameRef.current = null;
         }
       };
 
-      animationFrameRef.current = requestAnimationFrame(animate);
+      animationFrameRef.current =
+        requestAnimationFrame(animate);
     };
 
     const observer = new IntersectionObserver(
@@ -124,17 +131,32 @@ function Stats() {
             >
               <strong
                 className="
+                  block min-h-[1em]
                   text-[clamp(2.5rem,4.5vw,4.5rem)]
-                  font-black leading-none
-                  tracking-[-0.045em]
+                  font-extrabold leading-[0.95]
+                  tracking-[-0.015em]
+                  text-white
                   tabular-nums
                 "
+                style={{
+                  fontVariantNumeric:
+                    "tabular-nums lining-nums",
+                  fontFeatureSettings:
+                    '"tnum" 1, "lnum" 1',
+                }}
               >
-                {displayValues[index].toLocaleString("en-US")}
+                {displayValues[index].toLocaleString(
+                  "en-US",
+                )}
               </strong>
 
               <div className="mt-3 flex items-center gap-2">
-                <span className="text-xl font-black leading-none text-white sm:text-2xl">
+                <span
+                  className="
+                    text-xl font-black leading-none
+                    text-white sm:text-2xl
+                  "
+                >
                   +
                 </span>
 

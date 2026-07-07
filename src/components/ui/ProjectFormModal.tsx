@@ -116,14 +116,14 @@ const handleSubmit = async (
 
   return createPortal(
     <div
-      className="
-        fixed inset-0 z-[9999]
-        overflow-y-auto
-        bg-black/75
-        px-4 py-6
-        backdrop-blur-sm
-        sm:px-6 sm:py-10
-      "
+   className="
+  fixed inset-0 z-[9999]
+  overflow-x-hidden overflow-y-auto
+  bg-black/75
+  px-3 py-6
+  backdrop-blur-sm
+  sm:px-6 sm:py-10
+"
       onMouseDown={(event) => {
         if (event.target === event.currentTarget) {
           closeModal();
@@ -131,10 +131,11 @@ const handleSubmit = async (
       }}
     >
       <div
-        className="
-          flex min-h-full
-          items-center justify-center
-        "
+      className="
+  flex min-h-full w-full
+  min-w-0 items-center
+  justify-center overflow-x-hidden
+"
         onMouseDown={(event) => {
           if (event.target === event.currentTarget) {
             closeModal();
@@ -146,17 +147,17 @@ const handleSubmit = async (
   aria-modal="true"
   aria-labelledby="project-form-title"
   onMouseDown={(event) => event.stopPropagation()}
-  className="
-    isolate relative grid
-    max-h-[calc(100vh-3rem)]
-    w-full max-w-[1040px]
-    overflow-y-auto
-    rounded-[28px]
-    bg-white text-black
-    shadow-[0_40px_120px_rgba(0,0,0,0.5)]
-    lg:grid-cols-[280px_minmax(0,1fr)]
-    lg:overflow-hidden
-  "
+ className="
+  isolate relative grid
+  max-h-[calc(100vh-3rem)]
+  w-full max-w-[1040px]
+  min-w-0 overflow-x-hidden
+  overflow-y-auto rounded-[28px]
+  bg-white text-black
+  shadow-[0_40px_120px_rgba(0,0,0,0.5)]
+  lg:grid-cols-[280px_minmax(0,1fr)]
+  lg:overflow-hidden
+"
 >
           {/* زر الإغلاق */}
           <button
@@ -181,15 +182,16 @@ const handleSubmit = async (
 
           {/* الجزء الأسود */}
   <div
-  className="
-    relative z-20 min-w-0 overflow-visible
-    bg-black px-7 py-10
-    text-white
-    sm:px-9 sm:py-12
-    lg:flex lg:min-h-[680px]
-    lg:flex-col lg:justify-between
-    lg:px-6 lg:py-14
-  "
+className="
+  relative z-20 min-w-0
+  overflow-hidden lg:overflow-visible
+  bg-black px-6 py-10
+  text-white
+  sm:px-9 sm:py-12
+  lg:flex lg:min-h-[680px]
+  lg:flex-col lg:justify-between
+  lg:px-6 lg:py-14
+"
 
 >
             <div
@@ -240,29 +242,29 @@ const handleSubmit = async (
   </span>
 
   {/* اللابتوب: ng تبدأ عند حافة الجزء الأبيض بالضبط */}
-  <span
-    className="
-      relative hidden h-[1em]
-      lg:mr-[-1.5rem] lg:block
-    "
-  >
-    <span
-      className="
-        absolute right-0 top-0
-        whitespace-nowrap text-white
-      "
-    >
-      Somethi
-    </span>
+ <span
+  className="
+    relative hidden h-[1em]
+    lg:mr-0 lg:block
+  "
+>
+ <span
+  className="
+    absolute right-[-1.25rem] top-0
+    whitespace-nowrap text-white
+  "
+>
+  Somethi
+</span>
 
-    <span
-      className="
-        absolute left-full top-0
-        whitespace-nowrap text-black
-      "
-    >
-      ng
-    </span>
+<span
+  className="
+    absolute left-[calc(100%+1.25rem)] top-0
+    whitespace-nowrap text-black
+  "
+>
+  ng
+</span>
   </span>
 
   <span className="block whitespace-nowrap">
@@ -307,14 +309,15 @@ const handleSubmit = async (
 
           {/* الجزء الأبيض */}
   <div
-  className="
-    relative z-10 min-w-0 bg-white
-    px-6 py-10
-    sm:px-10 sm:py-12
-    lg:max-h-[calc(100vh-3rem)]
-    lg:overflow-y-auto
-    lg:pb-14 lg:pl-24 lg:pr-12 lg:pt-14
-  "
+className="
+  relative z-10 min-w-0
+  max-w-full overflow-x-hidden
+  bg-white px-6 py-10
+  sm:px-10 sm:py-12
+  lg:max-h-[calc(100vh-3rem)]
+  lg:overflow-y-auto
+  lg:pb-14 lg:pl-24 lg:pr-12 lg:pt-14
+"
 >
             {isSubmitted ? (
               <div
