@@ -3,7 +3,7 @@ import Footer from "../components/layout/Footer";
 
 import Hero from "../sections/Hero";
 import Stats from "../sections/Stats";
-import About from "../sections/About";
+// import About from "../sections/About";
 import Services from "../sections/Services";
 import WhyChooseUs from "../sections/WhyChooseUs";
 import AboutAlternative from "../sections/AboutAlternative";
@@ -18,7 +18,7 @@ function HomePage() {
       <main>
         <Hero />
         <Stats />
-        <About />
+        {/* <About /> */}
         <AboutAlternative/>
         <Services />
          <Clients />

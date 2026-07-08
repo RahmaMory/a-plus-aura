@@ -46,7 +46,7 @@
 //   {
 //     id: "engineering-interior",
 //     title: "Architecture - Decoration",
-//     type: "Industry",
+//     
 //     videos: makeVideos("engineering-interior", [
 //       {
 //         driveId: "1oAiC-0LobVnwqLV8FlWEheercPJs-eTK",
@@ -66,7 +66,7 @@
 //   {
 //     id: "promo",
 //     title: "Promo",
-//     type: "Format",
+//     
 //     videos: makeVideos("promo", [
 //       {
 //         driveId: "1E7nZx9mh-i4bKve4J-eJqbZat8mePn3k",
@@ -83,7 +83,7 @@
 //   {
 //     id: "commercial-promo",
 //     title: "Commercial Promo",
-//     type: "Format",
+//     
 //     videos: makeVideos("commercial-promo", [
 //       {
 //         driveId: "1nuHrI5DtsqUiN85vgOponex-IQHURSka",
@@ -109,7 +109,7 @@
 //   {
 //     id: "sales-reels",
 //     title: "Sales Reels",
-//     type: "Format",
+//     
 //     videos: makeVideos("sales-reels", [
 //       {
 //         driveId: "1kaymVQ0WFYAgE7PTgPgCBoj8VsFhvks3",
@@ -126,7 +126,7 @@
 //   {
 //     id: "interior",
 //     title: "Interior",
-//     type: "Industry",
+//     
 //     videos: makeVideos("interior", [
 //       {
 //         driveId: "1g_KektIZGPUHEppM7dQr9Nx7_SpTT85n",
@@ -142,7 +142,7 @@
 //   {
 //     id: "education",
 //     title: "Education",
-//     type: "Industry",
+//     
 //     videos: makeVideos("education", [
 //       {
 //         driveId: "1A_uUt6HjFznc1zKV7l4OIZVcb8_V3B8c",
@@ -167,7 +167,7 @@
 //   // {
 //   //   id: "real-estate",
 //   //   title: "Real Estate",
-//   //   type: "Industry",
+//   //   
 //   //   videos: makeVideos("real-estate", [
 //   //     {
 //   //       driveId: "190IY1qBTzrpsImPyiv1buRWXF2gY7cHY",
@@ -183,7 +183,7 @@
 //   {
 //     id: "motion-edits",
 //     title: "Motion Edits",
-//     type: "Format",
+//     
 //     videos: makeVideos("motion-edits", [
 //       {
 //         driveId: "14Fx8iIXgijQ332wm21fI2Om3scm5qARc",
@@ -227,7 +227,7 @@
 //   {
 //     id: "commercial-ads",
 //     title: "Commercial Ads",
-//     type: "Format",
+//     
 //     videos: makeVideos("commercial-ads", [
 //       {
 //         driveId: "1-34PVqLrulZUUz6FCTrBIC3uEtHyAELX",
@@ -244,7 +244,7 @@
 //   {
 //     id: "real-estate-commercial",
 //     title: "Big Commercial Promos — Real Estate",
-//     type: "Industry",
+//     
 //     videos: makeVideos("real-estate-commercial", [
 //       {
 //         driveId: "1o-VkG-FGQY0DDC_4XUUL95ddyVOwX_PE",
@@ -277,7 +277,6 @@ export type MediaVideo = {
 export type MediaCategory = {
   id: string;
   title: string;
-  type: "Industry" | "Format";
   videos: MediaVideo[];
   folderUrl?: string;
   fallbackImage?: string;
@@ -309,7 +308,7 @@ export const mediaProductionCategories: MediaCategory[] = [
   {
     id: "engineering-interior",
     title: "Architecture - Decoration",
-    type: "Industry",
+    
     videos: makeVideos("engineering-interior", [
       {
         driveId: "1oAiC-0LobVnwqLV8FlWEheercPJs-eTK",
@@ -332,7 +331,7 @@ export const mediaProductionCategories: MediaCategory[] = [
   {
     id: "promo",
     title: "Promo",
-    type: "Format",
+    
     videos: makeVideos("promo", [
       {
         driveId: "1E7nZx9mh-i4bKve4J-eJqbZat8mePn3k",
@@ -350,7 +349,7 @@ export const mediaProductionCategories: MediaCategory[] = [
   {
     id: "commercial-promo",
     title: "Commercial Promo",
-    type: "Format",
+    
     videos: makeVideos("commercial-promo", [
       {
         driveId: "1nuHrI5DtsqUiN85vgOponex-IQHURSka",
@@ -378,7 +377,7 @@ export const mediaProductionCategories: MediaCategory[] = [
   {
     id: "sales-reels",
     title: "Sales Reels",
-    type: "Format",
+    
     videos: makeVideos("sales-reels", [
       {
         driveId: "1kaymVQ0WFYAgE7PTgPgCBoj8VsFhvks3",
@@ -396,7 +395,7 @@ export const mediaProductionCategories: MediaCategory[] = [
   {
     id: "interior",
     title: "Interior",
-    type: "Industry",
+    
     videos: makeVideos("interior", [
       {
         driveId: "1g_KektIZGPUHEppM7dQr9Nx7_SpTT85n",
@@ -414,7 +413,7 @@ export const mediaProductionCategories: MediaCategory[] = [
   {
     id: "education",
     title: "Education",
-    type: "Industry",
+    
     videos: makeVideos("education", [
       {
         driveId: "1A_uUt6HjFznc1zKV7l4OIZVcb8_V3B8c",
@@ -442,7 +441,7 @@ export const mediaProductionCategories: MediaCategory[] = [
   {
     id: "motion-edits",
     title: "Motion Edits",
-    type: "Format",
+    
     videos: makeVideos("motion-edits", [
       {
         driveId: "14Fx8iIXgijQ332wm21fI2Om3scm5qARc",
@@ -495,7 +494,7 @@ export const mediaProductionCategories: MediaCategory[] = [
   {
     id: "commercial-ads",
     title: "Commercial Ads",
-    type: "Format",
+    
     videos: makeVideos("commercial-ads", [
       {
         driveId: "1-34PVqLrulZUUz6FCTrBIC3uEtHyAELX",
@@ -513,7 +512,7 @@ export const mediaProductionCategories: MediaCategory[] = [
   {
     id: "real-estate-commercial",
     title: "Big Commercial Promos — Real Estate",
-    type: "Industry",
+    
     videos: makeVideos("real-estate-commercial", [
       {
         driveId: "1o-VkG-FGQY0DDC_4XUUL95ddyVOwX_PE",

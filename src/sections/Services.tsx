@@ -3,17 +3,17 @@ import {
   ChartNoAxesCombined,
   Clapperboard,
   Layers3,
-  PenTool,
+ 
 } from "lucide-react";
 
 const featuredService = {
-  title: "Full Marketing Package",
+  title: "Full Marketing ",
   description:
     "A complete marketing solution for brands that need strategy, performance marketing, media buying, graphic design, and video editing managed together by one professional team.",
   image: "/images/service-full-package.png",
   icon: Layers3,
-    href: "#contact",
-  cta: "Request This Service",
+ href: "/services/full-marketing",
+cta: "View Our Work",
 };
 
 const services = [
@@ -26,17 +26,8 @@ const services = [
       href: "#contact",
   cta: "Request This Service",
   },
- {
-  title: "social media",
-  description:
-    "Distinctive visual designs and campaign creatives that keep your brand consistent, recognizable, and memorable.",
-  image: "/images/service-graphic-design.png",
-  icon: PenTool,
-  href: "#contact",
-  cta: "Request This Service",
-},
   {
-  title: "media production",
+  title: "Media Production",
   description:
     "Professional editing for reels, advertisements, promotional videos, and social content designed to hold attention.",
   image: "/images/service-video-editing.png",
@@ -52,7 +43,7 @@ function Services() {
   return (
     <section
       id="services"
-      className="scroll-mt-24 bg-[#FAFAFA py-16 sm:py-20 lg:py-28"
+      className="scroll-mt-24 bg-[#FAFAFA] py-16 sm:py-20 lg:py-28"
     >
       <div className="mx-auto max-w-[1280px] px-5 sm:px-8">
         {/* عنوان القسم */}
@@ -79,7 +70,7 @@ function Services() {
 
     <p className="mt-6 max-w-[390px] text-base leading-7 text-black/60 sm:text-[17px]">
       Choose one specialized service or bring everything together through a
-      complete marketing package designed around your brand&apos;s goals.
+      complete marketing designed around your brand&apos;s goals.
     </p>
 
     <p className="mt-4 max-w-[390px] text-sm leading-7 text-black/50 sm:text-[15px]">
@@ -105,7 +96,7 @@ function Services() {
     <div className="relative w-full overflow-hidden bg-[#e9e9e9]">
       <img
         src={featuredService.image}
-        alt="Full marketing package by A Plus Aura"
+        alt="Full marketing by A Plus Aura"
         loading="lazy"
         decoding="async"
         className="
@@ -154,7 +145,7 @@ function Services() {
         {[
           "Marketing Strategy",
           "Performance Marketing & Media Buying",
-          "Graphic Design",
+          
           "Video Editing",
         ].map((item) => (
           <span
@@ -171,13 +162,13 @@ function Services() {
       </div>
 
       <a
-        href="#contact"
+  href={featuredService.href}
         className="
           mt-auto inline-flex w-fit items-center gap-2
           pt-5 text-sm font-bold text-black
         "
       >
-        <span>Request Full Marketing Package</span>
+        <span>{featuredService.cta}</span>
 
         <ArrowUpRight
           size={17}
@@ -193,7 +184,7 @@ function Services() {
 </div>
 
         {/* الخدمات المنفصلة */}
-       <div className="mt-10 grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+       <div className="mt-10 grid gap-6 md:grid-cols-2 lg:gap-8">
           {services.map((service) => {
             const Icon = service.icon;
 
@@ -207,7 +198,7 @@ function Services() {
                   hover:-translate-y-2
                   hover:border-black/20
                   hover:shadow-[0_24px_60px_rgba(0,0,0,0.1)]
-                  sm:p-5
+                  sm:p-5 lg:p-6
                 "
               >
                 <div className="relative overflow-hidden bg-[#e9e9e9]">
@@ -216,11 +207,13 @@ function Services() {
                     alt={`${service.title} service`}
                     loading="lazy"
                     decoding="async"
-                    className="
-                      aspect-[16/10] h-full w-full object-cover
-                      transition-transform duration-700 ease-out
-                      group-hover:scale-[1.05]
-                    "
+                   className="
+  h-[230px] w-full object-cover
+  transition-transform duration-700 ease-out
+  group-hover:scale-[1.05]
+  sm:h-[260px]
+  lg:h-[300px]
+"
                   />
 
                   <span

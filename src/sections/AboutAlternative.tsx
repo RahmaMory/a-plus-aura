@@ -21,7 +21,7 @@ const principles = [
 function AboutAlternative() {
   return (
     <section
-      id="about-alternative"
+      id="about"
       className="
         border-t border-black/10
         bg-white py-16

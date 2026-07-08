@@ -1,3 +1,4 @@
+import { Phone } from "lucide-react";
 
 const navigationLinks = [
   
@@ -5,13 +6,10 @@ const navigationLinks = [
   { label: "Services", href: "#services" },
     { label: "Clients", href: "#clients" },
   { label: "Why Choose Us", href: "#why-us" },
-  { label: "Contact", href: "#contact" },
-];
-
+{ label: "Contact", href: "https://wa.me/201557642021" },];
 const serviceLinks = [
   "Full Marketing Package",
   "Performance Marketing & Media Buying",
-  "Graphic Design",
   "Video Editing",
 ];
 
@@ -31,11 +29,11 @@ const socialLinks = [
     href: "https://www.linkedin.com/company/a-plus-aura/",
     icon: "/icons/linkedin.svg",
   },
-  {
-    label: "WhatsApp",
-    href: "https://wa.me/201557642021",
-    icon: "/icons/whatsapp.svg",
-  },
+  // {
+  //   label: "WhatsApp",
+  //   href: "https://wa.me/201557642021",
+  //   icon: "/icons/whatsapp.svg",
+  // },
   {
     label: "TikTok",
     href: "https://www.tiktok.com/@a_plus_aura",
@@ -116,6 +114,35 @@ function Footer() {
               </a>
             ))}
           </div>
+
+
+          <a
+  href="https://wa.me/201557642021"
+  target="_blank"
+  rel="noopener noreferrer"
+  className="
+    mt-5 inline-flex w-fit
+    items-center gap-3
+    text-sm font-semibold
+    text-white/65
+    transition-colors duration-300
+    hover:text-white
+  "
+>
+  <span
+    className="
+      grid size-11 place-items-center
+     
+      text-white
+    "
+  >
+    <Phone size={18} />
+  </span>
+
+  <span dir="ltr">
+    +20 155 764 2021
+  </span>
+</a>
         </div>
 
         {/* Navigation */}
@@ -135,15 +162,25 @@ function Footer() {
             {navigationLinks.map((link) => (
               <li key={link.href}>
                 <a
-                  href={link.href}
-                  className="
-                    text-sm font-medium text-white/60
-                    transition-colors duration-200
-                    hover:text-white
-                  "
-                >
-                  {link.label}
-                </a>
+  href={link.href}
+  target={
+    link.href.startsWith("http")
+      ? "_blank"
+      : undefined
+  }
+  rel={
+    link.href.startsWith("http")
+      ? "noopener noreferrer"
+      : undefined
+  }
+  className="
+    text-sm font-medium text-white/60
+    transition-colors duration-200
+    hover:text-white
+  "
+>
+  {link.label}
+</a>
               </li>
             ))}
           </ul>

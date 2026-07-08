@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Menu, X } from "lucide-react";
 import ProjectFormModal from "../ui/ProjectFormModal";
 const navigationLinks = [
@@ -7,7 +7,7 @@ const navigationLinks = [
   { label: "Process", href: "#process" },
   { label: "Clients", href: "#clients" },
   { label: "Why Choose Us", href: "#why-us" },
-  { label: "Contact", href: "#contact" },
+{ label: "Contact", href: "https://wa.me/201557642021" },
 ];
 
 function Navbar() {
@@ -17,6 +17,24 @@ const [isProjectFormOpen, setIsProjectFormOpen] = useState(false);
     setIsMenuOpen(false);
   };
 
+  useEffect(() => {
+  const openProjectForm = () => {
+    setIsMenuOpen(false);
+    setIsProjectFormOpen(true);
+  };
+
+  window.addEventListener(
+    "open-project-form",
+    openProjectForm,
+  );
+
+  return () => {
+    window.removeEventListener(
+      "open-project-form",
+      openProjectForm,
+    );
+  };
+}, []);
   return (
     <header className="sticky top-0 z-50 border-b border-black/10 bg-white/95 backdrop-blur-md">
       <nav
@@ -35,14 +53,14 @@ const [isProjectFormOpen, setIsProjectFormOpen] = useState(false);
           aria-label="A Plus Aura home"
         >
           <img
-            src="/logo.png"
-            alt="A Plus Aura"
-            className="
-              h-auto w-[135px] object-contain
-              sm:w-[150px]
-              lg:w-[165px]
-            "
-          />
+  src="/logo.png"
+  alt="A Plus Aura"
+  className="
+    h-auto w-[105px] object-contain
+    sm:w-[118px]
+    lg:w-[128px]
+  "
+/>
         </a>
 
         {/* Desktop navigation */}

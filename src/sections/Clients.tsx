@@ -1,25 +1,72 @@
-const firstClientRow = [
-  "Galaxy Mall",
-  "Happy Mall",
-  "Emaar Solar",
-  "Elghanam",
-  "ZA Design",
-  "Sky Construction",
-  "Capri Mall",
+type ClientItem = {
+  name: string;
+  logo: string;
+};
+
+const firstClientRow: ClientItem[] = [
+  {
+    name: "ar1",
+    logo: "/images/clients/arc1.jpg",
+  },
+  {
+    name: "arc2",
+    logo: "/images/clients/arc2.jpg",
+  },
+  {
+    name: "real1",
+    logo: "/images/clients/real1.jpg",
+  },
+  {
+    name: "edu1",
+    logo: "/images/clients/edu1.png",
+  },
+  {
+    name: "fashon1",
+    logo: "/images/clients/fashon1.jpg",
+  },
+  {
+    name: "food1",
+    logo: "/images/clients/food1.png",
+  },
+  {
+    name: "serv7",
+    logo: "/images/clients/serv7.jpg",
+  },
 ];
 
-const secondClientRow = [
-  "Baraka Soft",
-  "Squeez",
-  "K40 Mall",
-  "Print Point",
-  "Batey",
-  "Health Hub",
-  "Vivo Planta",
+const secondClientRow: ClientItem[] = [
+{
+    name: "real1",
+    logo: "/images/clients/real4.jpg",
+  },
+  {
+    name: "real6",
+    logo: "/images/clients/real6.jpg",
+  },
+  {
+    name: "arc5",
+    logo: "/images/clients/arc5.jpg",
+  },
+  {
+    name: "sport1",
+    logo: "/images/clients/sport1.jpg",
+  },
+  {
+    name: "serv6",
+    logo: "/images/clients/serv6.jpg",
+  },
+  {
+    name: "edu3",
+    logo: "/images/clients/edu3.jpg",
+  },
+  {
+    name: "serv1",
+    logo: "/images/clients/serv1.jpg",
+  },
 ];
 
 type ClientMarqueeProps = {
-  clients: string[];
+  clients: ClientItem[];
   reverse?: boolean;
 };
 
@@ -43,24 +90,39 @@ function ClientMarquee({
           >
             {clients.map((client, index) => (
               <div
-                key={`${copyIndex}-${client}-${index}`}
+                key={`${copyIndex}-${client.name}-${index}`}
                 className="
-                  flex min-h-[64px] min-w-[180px]
-                  items-center justify-center
-                  rounded-2xl
-                  border border-black/10
-                  bg-[#f6f6f6]
-                  px-5 py-4
-                  text-center text-sm
-                  font-bold text-black/55
-                  transition-colors duration-300
-                  hover:border-black
-                  hover:bg-black
-                  hover:text-white
-                  sm:min-w-[210px]
+                 group flex min-h-[96px]
+min-w-[220px] items-center
+justify-center rounded-[28px]
+border border-black/10
+bg-white px-7 py-5
+shadow-[0_14px_40px_rgba(0,0,0,0.055)]
+transition-all duration-300
+hover:-translate-y-0.5
+hover:border-black/25
+hover:bg-[#FAFAFA]
+hover:shadow-[0_20px_55px_rgba(0,0,0,0.09)]
+sm:min-w-[250px]
                 "
+               
               >
-                {client}
+                <img
+  src={client.logo}
+  alt={client.name}
+  loading="lazy"
+  decoding="async"
+  className="
+    max-h-12 max-w-[150px]
+    object-contain
+    opacity-95
+    transition-all duration-300
+    group-hover:scale-105
+    group-hover:opacity-100
+    sm:max-h-14
+    sm:max-w-[170px]
+  "
+/>
               </div>
             ))}
           </div>
@@ -92,22 +154,20 @@ function Clients() {
         </p>
 
         <h2
-  className="
-    mt-5
-    text-[clamp(1.8rem,3.2vw,3.2rem)]
-    font-black leading-[1]
-    tracking-[-0.045em]
-    text-black
-  "
->
-  Trusted by 160+
-  <span className="text-black/40"> Companies</span>
-</h2>
-      
+          className="
+            mt-5
+            text-[clamp(1.8rem,3.2vw,3.2rem)]
+            font-black leading-[1]
+            tracking-[-0.045em]
+            text-black
+          "
+        >
+          Trusted by 100+
+          <span className="text-black/40"> Companies</span>
+        </h2>
       </div>
 
       <div className="relative mt-12 space-y-4">
-        {/* تدرج الجوانب */}
         <div
           className="
             pointer-events-none absolute
@@ -128,10 +188,8 @@ function Clients() {
           "
         />
 
-        {/* الشريط الأول */}
         <ClientMarquee clients={firstClientRow} />
 
-        {/* الشريط الثاني في الاتجاه العكسي */}
         <ClientMarquee
           clients={secondClientRow}
           reverse

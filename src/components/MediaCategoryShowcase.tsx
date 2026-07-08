@@ -428,14 +428,7 @@ function MediaCategoryShowcase({
   "
 >
       <div>
-        <p
-          className="
-            text-[11px] font-bold uppercase
-            tracking-[0.2em] text-black/40
-          "
-        >
-          {category.type}
-        </p>
+       
 
         <h2
           className="
@@ -606,44 +599,59 @@ function MediaCategoryShowcase({
                 index === activeIndex;
 
               return (
-                <button
-                  key={video.id}
-                  type="button"
-                  onMouseEnter={() =>
-                    setActiveIndex(index)
-                  }
-                  onFocus={() =>
-                    setActiveIndex(index)
-                  }
-                  onClick={() =>
-                    setActiveIndex(index)
-                  }
-                  className={`
-                    shrink-0 rounded-full
-                    px-4 py-2.5
-                    text-xs font-bold
-                    transition-colors duration-200
-                    ${
-                      isActive
-                        ? `
-                          bg-black
-                          text-white
-                        `
-                        : `
-                          bg-[#f2f2f2]
-                          text-black/50
-                          hover:bg-black
-                          hover:text-white
-                        `
-                    }
-                  `}
-                  aria-label={`Preview ${video.title}`}
-                >
-                  {String(index + 1).padStart(
-                    2,
-                    "0",
-                  )}
-                </button>
+               <button
+  key={video.id}
+  type="button"
+  onMouseEnter={() =>
+    setActiveIndex(index)
+  }
+  onFocus={() =>
+    setActiveIndex(index)
+  }
+  onClick={() =>
+    setActiveIndex(index)
+  }
+  className={`
+    grid size-12 shrink-0
+    place-items-center
+    rounded-full
+    text-center
+    transition-colors duration-200
+    ${
+      isActive
+        ? `
+          bg-black
+          text-white
+        `
+        : `
+          bg-[#f2f2f2]
+          text-black/50
+          hover:bg-black
+          hover:text-white
+        `
+    }
+  `}
+  aria-label={`Preview ${video.title}`}
+>
+  <span
+    className={`
+      block translate-y-[1px]
+      text-sm leading-none
+      tracking-[-0.02em]
+      tabular-nums
+      ${
+        isActive
+          ? "font-black"
+          : "font-extrabold"
+      }
+    `}
+  >
+    {String(index + 1).padStart(
+      2,
+      "0",
+    )}
+  </span>
+</button>
               );
             },
           )}

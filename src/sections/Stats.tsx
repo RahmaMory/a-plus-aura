@@ -12,12 +12,12 @@ const stats = [
     description: "Happy Clients",
   },
   {
-    value: 8,
+    value: 7,
     category: "INDUSTRIES",
     description: "Industries We Serve",
   },
   {
-    value: 160,
+    value: 100,
     category: "CAMPAIGNS",
     description: "Managed for Clients",
   },

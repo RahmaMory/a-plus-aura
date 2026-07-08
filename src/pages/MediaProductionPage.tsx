@@ -12,6 +12,7 @@ import {
   ArrowUpRight,
   Clapperboard,
 } from "lucide-react";
+import ProjectFormModal from "../components/ui/ProjectFormModal";
 import DriveVideoModal from "../components/DriveVideoModal";
 import MediaCategoryShowcase from "../components/MediaCategoryShowcase";
 import {
@@ -108,7 +109,8 @@ const scaleIn: Variants = {
 function MediaProductionPage() {
   const [selectedVideo, setSelectedVideo] =
     useState<SelectedVideo>(null);
-
+const [isProjectFormOpen, setIsProjectFormOpen] =
+  useState(false);
   useEffect(() => {
     document.title =
       "Media Production | A Plus Aura";
@@ -176,7 +178,7 @@ function MediaProductionPage() {
             />
           </a>
 
-          <a
+      <a
             href="/#services"
             className="
   group inline-flex shrink-0 items-center
@@ -196,6 +198,7 @@ function MediaProductionPage() {
 
             Back to Services
           </a>
+
         </div>
       </motion.header>
 
@@ -259,7 +262,7 @@ function MediaProductionPage() {
                 Media
 
                 <span className="block text-black/35">
-                  Production.
+                  Production
                 </span>
               </motion.h1>
 
@@ -312,6 +315,22 @@ function MediaProductionPage() {
                     Selected Projects
                   </p>
                 </motion.div>
+                <motion.div
+  variants={scaleIn}
+  className="
+    rounded-2xl bg-white
+    px-6 py-4
+    shadow-[0_12px_35px_rgba(0,0,0,0.05)]
+  "
+>
+  <p className="text-2xl font-black">
+    +2,500
+  </p>
+
+  <p className="mt-1 text-xs text-black/40">
+    Videos Produced
+  </p>
+</motion.div>
               </motion.div>
             </motion.div>
 
@@ -597,28 +616,29 @@ function MediaProductionPage() {
               </h2>
             </div>
 
-            <a
-              href="/#contact"
-              className="
-                group inline-flex
-                min-h-14 w-fit
-                shrink-0 items-center
-                gap-3 rounded-full
-                bg-black px-7 py-4
-                font-semibold text-white
-              "
-            >
-              Start a Project
+            <button
+  type="button"
+  onClick={() => setIsProjectFormOpen(true)}
+  className="
+    group inline-flex
+    min-h-14 w-fit
+    shrink-0 items-center
+    gap-3 rounded-full
+    bg-black px-7 py-4
+    font-semibold text-white
+  "
+>
+  Start a Project
 
-              <ArrowUpRight
-                size={18}
-                className="
-                  transition-transform duration-300
-                  group-hover:translate-x-1
-                  group-hover:-translate-y-1
-                "
-              />
-            </a>
+  <ArrowUpRight
+    size={18}
+    className="
+      transition-transform duration-300
+      group-hover:translate-x-1
+      group-hover:-translate-y-1
+    "
+  />
+</button>
           </div>
         </motion.section>
       </main>
@@ -651,13 +671,18 @@ function MediaProductionPage() {
         </div>
       </footer>
 
-      <DriveVideoModal
-        video={selectedVideo?.video ?? null}
-        categoryTitle={
-          selectedVideo?.categoryTitle ?? ""
-        }
-        onClose={closeVideo}
-      />
+      <ProjectFormModal
+  isOpen={isProjectFormOpen}
+  onClose={() => setIsProjectFormOpen(false)}
+/>
+
+<DriveVideoModal
+  video={selectedVideo?.video ?? null}
+  categoryTitle={
+    selectedVideo?.categoryTitle ?? ""
+  }
+  onClose={closeVideo}
+/>
     </div>
   );
 }

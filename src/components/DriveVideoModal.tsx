@@ -598,11 +598,11 @@
 
 
 
-
 import {
   useEffect,
   useRef,
   useState,
+  type SyntheticEvent,
 } from "react";
 import { createPortal } from "react-dom";
 import {
@@ -631,14 +631,18 @@ function DriveVideoModal({
 
   const slowTimerRef =
     useRef<number | null>(null);
-
+const [videoOrientation, setVideoOrientation] =
+  useState<"portrait" | "landscape" | "unknown">(
+    "unknown",
+  );
   useEffect(() => {
     if (!video) {
       return;
     }
 
-    setIsLoading(true);
-    setIsTakingLong(false);
+ setIsLoading(true);
+setIsTakingLong(false);
+setVideoOrientation("unknown");
 
     const previousOverflow =
       document.body.style.overflow;
@@ -694,7 +698,26 @@ function DriveVideoModal({
     setIsLoading(false);
     setIsTakingLong(false);
   };
+const handleVideoMetadata = (
+  event: SyntheticEvent<HTMLVideoElement>,
+) => {
+  const currentVideo = event.currentTarget;
 
+  if (
+    currentVideo.videoHeight >
+    currentVideo.videoWidth
+  ) {
+    setVideoOrientation("portrait");
+  } else {
+    setVideoOrientation("landscape");
+  }
+
+  finishLoading();
+};
+
+const isPortraitVideo =
+  videoOrientation === "portrait" ||
+  videoOrientation === "unknown";
   return createPortal(
     <div
       className="
@@ -716,15 +739,18 @@ function DriveVideoModal({
       <div
         role="dialog"
         aria-modal="true"
-        className="
-          mx-auto flex w-full
-          max-w-[430px] flex-col
-          rounded-[24px]
-          bg-[#080808] p-3
-          shadow-[0_35px_100px_rgba(0,0,0,0.55)]
-          sm:max-w-[460px] sm:p-4
-          lg:max-w-[980px] lg:p-5
-        "
+      className={`
+  mx-auto flex w-full flex-col
+  rounded-[24px]
+  bg-[#080808] p-3
+  shadow-[0_35px_100px_rgba(0,0,0,0.55)]
+  sm:p-4 lg:p-5
+  ${
+    isPortraitVideo
+      ? "max-w-[min(94vw,560px)] lg:max-w-[min(94vw,640px)]"
+      : "max-w-[430px] sm:max-w-[520px] md:max-w-[760px] lg:max-w-[min(94vw,1240px)] xl:max-w-[min(94vw,1420px)]"
+  }
+`}
         onMouseDown={(event) =>
           event.stopPropagation()
         }
@@ -780,14 +806,15 @@ function DriveVideoModal({
         </div>
 
         <div
-          className="
-            relative w-full
-            aspect-[9/16]
-            overflow-hidden rounded-[20px]
-            bg-black
-            lg:aspect-video
-            lg:rounded-[22px]
-          "
+        className={`
+  relative overflow-hidden rounded-[20px]
+  bg-black lg:rounded-[22px]
+  ${
+    isPortraitVideo
+      ? "mx-auto aspect-[9/16] h-[min(72dvh,760px)] max-w-full sm:h-[min(76dvh,820px)] lg:h-[min(80dvh,900px)]"
+      : "w-full aspect-video max-h-[76dvh]"
+  }
+`}
         >
           {isLoading && (
             <div
@@ -851,8 +878,9 @@ function DriveVideoModal({
             playsInline
             preload="metadata"
             controlsList="nodownload"
-            onLoadedData={finishLoading}
-            onCanPlay={finishLoading}
+           onLoadedMetadata={handleVideoMetadata}
+onLoadedData={finishLoading}
+onCanPlay={finishLoading}
             onError={finishLoading}
             className="
               absolute inset-0
