@@ -5,8 +5,12 @@
       "source": "/privacy-policy",
       "destination": "/index.html"
     },
-     {
+    {
       "source": "/services/media-production",
+      "destination": "/index.html"
+    },
+    {
+      "source": "/services/full-marketing",
       "destination": "/index.html"
     }
   ]
